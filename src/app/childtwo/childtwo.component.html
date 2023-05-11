@@ -1,0 +1,18 @@
+<table class="table">
+    <thead>
+      <tr>
+          <th scope="col">#</th>
+          <th scope="col">jobrole</th>
+        <th scope="col">designation</th>
+        <th scope="col">experience</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of jobsArray">
+        <th scope="row">1</th>
+        <td>{{item.jobRole}}</td>
+        <td>{{item.designation}}</td>
+        <td>{{item.experience}}</td>
+      </tr>
+    </tbody>
+  </table>
