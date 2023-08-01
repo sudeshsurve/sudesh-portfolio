@@ -41,10 +41,9 @@ RUN npm run build --prod
 FROM nginx:alpine
 
 # Copy the built app from the previous stage to the Nginx webroot
-COPY --from=node /app/dist/your-angular-app /usr/share/nginx/html
+COPY --from=node /app/dist/portfolio /usr/share/nginx/html
 
 # Expose the port on which Nginx will listen
 EXPOSE 80
 
-# Start Nginx server
-CMD ["nginx", "-g", "daemon off;"]
+
