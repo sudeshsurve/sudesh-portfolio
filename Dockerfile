@@ -20,7 +20,7 @@
 # EXPOSE 80
 
 # Use the official Node.js 14.x LTS image as the base image
-FROM node:14 as node
+FROM node:latest as node
 
 # Set the working directory inside the container
 WORKDIR /app
