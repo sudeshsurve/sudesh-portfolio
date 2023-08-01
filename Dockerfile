@@ -1,20 +1,50 @@
-FROM node:latest AS sass
+# FROM node:latest AS sass
 
+# WORKDIR /app
+
+# COPY . .
+
+# COPY package*.json ./
+
+# RUN npm install -f
+
+# RUN npm run build 
+
+# RUN ls
+
+
+# FROM nginx:alpine
+
+# COPY --from=sass ./app/dist/portfolio ./usr/share/nginx/html/
+
+# EXPOSE 80
+
+# Use the official Node.js 14.x LTS image as the base image
+FROM node:14 as node
+
+# Set the working directory inside the container
 WORKDIR /app
 
-COPY . .
-
+# Copy the package.json and package-lock.json files to the container
 COPY package*.json ./
 
-RUN npm install -f
+# Install the project dependencies
+RUN npm install
 
-RUN npm run build 
+# Copy all the application files to the container
+COPY . .
 
-RUN ls
+# Build the Angular app for production
+RUN npm run build --prod
 
-
+# Use a lightweight Nginx image to serve the built Angular app
 FROM nginx:alpine
 
-COPY --from=sass ./app/dist/portfolio ./usr/share/nginx/html/
+# Copy the built app from the previous stage to the Nginx webroot
+COPY --from=node /app/dist/your-angular-app /usr/share/nginx/html
 
+# Expose the port on which Nginx will listen
 EXPOSE 80
+
+# Start Nginx server
+CMD ["nginx", "-g", "daemon off;"]
