@@ -19,7 +19,7 @@
 
 # EXPOSE 80
 
-FROM node:latest AS build
+FROM node:latest AS sass
 
 WORKDIR /app
 
@@ -27,7 +27,7 @@ COPY . .
 
 COPY package*.json ./
 
-RUN npm install 
+RUN npm install -f
 
 RUN npm run build 
 
@@ -36,7 +36,7 @@ RUN ls
 
 FROM nginx:alpine
 
-COPY --from=build ./app/dist/portfolio ./usr/share/nginx/html/
+COPY --from=sass ./app/dist/portfolio ./usr/share/nginx/html/
 
 EXPOSE 80
 
