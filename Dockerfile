@@ -19,7 +19,7 @@
 
 # EXPOSE 80
 
-FROM node:latest AS sass
+FROM node:latest AS build
 
 WORKDIR /app
 
@@ -36,7 +36,7 @@ RUN ls
 
 FROM nginx:alpine
 
-COPY --from=sass ./app/dist/portfolio ./usr/share/nginx/html/
+COPY --from=build ./app/dist/portfolio ./usr/share/nginx/html/
 
 EXPOSE 80
 
